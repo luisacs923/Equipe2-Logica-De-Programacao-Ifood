@@ -9,91 +9,103 @@
 // - Listar todas as tarefas salvas
 // - Obter uma tarefa, através de um parâmetro (id)
 
-
-
 // A lista é armazenada como um array de objetos, sendo cada tarefa um objeto com as chaves: title, id, isComplete
 const toDoList = [];
 // A variável contador vai determinar o id da tarefa que será adicionada
 let contador = 1;
 
 function adicionaTarefa(lista) {
-    const titulo = window.prompt("Digite o nome da tarefa");
-    const tarefa = {
-        id: contador++,
-        title: titulo,
-        isComplete: false, // a chave isComplete diz se a tarefa foi concluída ou não, sua entrada padrão é false
-    };
-    lista.push(tarefa);
+  const titulo = window.prompt("Digite o nome da tarefa");
+  const tarefa = {
+    id: contador++,
+    title: titulo,
+    isComplete: false, // a chave isComplete diz se a tarefa foi concluída ou não, sua entrada padrão é false
+  };
+  lista.push(tarefa);
 }
 
-function editaTarefa() {
+function editaTarefa() {}
 
+function removeTarefa(lista, idParaRemover) {
+  const indice = lista.findIndex((tarefa) => tarefa.id === idParaRemover);
+
+  if (indice !== -1) {
+    lista.splice(indice, 1);
+    window.alert(`Tarefa com ID ${idParaRemover} removida com sucesso.`);
+  } else {
+    throw new Error(`Tarefa com ID ${idParaRemover} não encontrada na lista.`);
+  }
 }
 
-function removeTarefa() {
-   
-}
+function listarTarefas(lista) {
+    const ids = lista.map((tarefa) => tarefa.id);
+    window.alert("IDs das tarefas: " + ids.join(", "));
+  }
 
-function listarTarefas() {
-    
-}
-
-function exibirTarefa() {
   
-}
+
+function exibirTarefa() {}
 
 function exibirMenu() {
-    const escolha = window.prompt("Bem vindo a aplicação de Lista de Tarefas.\n" + 
-                                    "Escolha uma das opções abaixo:\n" + 
-                                    "1. Adicionar Tarefa\n" + 
-                                    "2. Editar uma Tarefa salva\n" + 
-                                    "3. Remover uma Tarefa salva\n" + 
-                                    "4. Listar todas as Tarefas salvas\n" + 
-                                    "5. Exibir uma única Tarefa por Id\n" + 
-                                    "6. Sair da aplicação");
-    return escolha;
+  const escolha = window.prompt(
+    "Bem vindo a aplicação de Lista de Tarefas.\n" +
+      "Escolha uma das opções abaixo:\n" +
+      "1. Adicionar Tarefa\n" +
+      "2. Editar uma Tarefa salva\n" +
+      "3. Remover uma Tarefa salva\n" +
+      "4. Listar todas as Tarefas salvas\n" +
+      "5. Exibir uma única Tarefa por Id\n" +
+      "6. Sair da aplicação"
+  );
+  return escolha;
 }
 
 let escolha;
 let idEscolhido; //Para as funções de editar, remover e exibir uma única tarefa, usamos a chave id da tarefa específica desejada
 do {
-    escolha = parseInt(exibirMenu());
-    switch (escolha) {
-        case 1:
-            adicionaTarefa(toDoList);
-            break;
-        case 2:
-            idEscolhido = parseInt(window.prompt("Digite o indice da tarefa que deseja editar"));
-            try {
-                editaTarefa(toDoList, idEscolhido);
-            } catch(err) {
-                window.alert(err.message);
-            }
-            break;
-        case 3:
-            idEscolhido = parseInt(window.prompt("Digite o indice da tarefa que deseja remover"));
-            try {
-                removeTarefa(toDoList, idEscolhido);
-            } catch(err) {
-                window.alert(err.message);
-            }
-            break;
-        case 4:
-            listarTarefas(toDoList);
-            break;
-        case 5: 
-            idEscolhido = parseInt(window.prompt("Digite o indice da tarefa que deseja visualizar"));
-            try {
-                exibirTarefa(toDoList, idEscolhido);
-            } catch (err) {
-                window.alert(err.message);
-            }
-            break;
-        case 6:
-            window.alert("Até logo!");
-            break;
-        default:
-            window.alert("Opção Inválida. Por favor, escolha novamente.");
-            break;
-    }
+  escolha = parseInt(exibirMenu());
+  switch (escolha) {
+    case 1:
+      adicionaTarefa(toDoList);
+      break;
+    case 2:
+      idEscolhido = parseInt(
+        window.prompt("Digite o indice da tarefa que deseja editar")
+      );
+      try {
+        editaTarefa(toDoList, idEscolhido);
+      } catch (err) {
+        window.alert(err.message);
+      }
+      break;
+    case 3:
+      idEscolhido = parseInt(
+        window.prompt("Digite o indice da tarefa que deseja remover")
+      );
+      try {
+        removeTarefa(toDoList, idEscolhido);
+      } catch (err) {
+        window.alert(err.message);
+      }
+      break;
+    case 4:
+      listarTarefas(toDoList);
+      break;
+    case 5:
+      idEscolhido = parseInt(
+        window.prompt("Digite o indice da tarefa que deseja visualizar")
+      );
+      try {
+        exibirTarefa(toDoList, idEscolhido);
+      } catch (err) {
+        window.alert(err.message);
+      }
+      break;
+    case 6:
+      window.alert("Até logo!");
+      break;
+    default:
+      window.alert("Opção Inválida. Por favor, escolha novamente.");
+      break;
+  }
 } while (escolha !== 6);
