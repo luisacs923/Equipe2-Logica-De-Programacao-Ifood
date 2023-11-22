@@ -26,18 +26,8 @@ function adicionaTarefa(lista) {
     lista.push(tarefa);
 }
 
-function editaTarefa(lista, id) {
-    const tarefa = lista.find(item => item.id === id);
+function editaTarefa() {
 
-    if (tarefa) {
-        const novoTexto = window.prompt('Edite a tarefa:', tarefa.title);
-
-        if (novoTexto !== null && novoTexto !== '') {
-            tarefa.title = novoTexto;
-        }
-    } else {
-        throw new Error('Tarefa não encontrada');
-    }
 }
 
 function removeTarefa() {
