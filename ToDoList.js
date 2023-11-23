@@ -33,16 +33,16 @@ function removeTarefa(lista, idParaRemover) {
 
   if (indice !== -1) {
     lista.splice(indice, 1);
-    window.alert(`Tarefa com ID ${idParaRemover} removida com sucesso.`);
+    console.log(`Tarefa com ID ${idParaRemover} removida com sucesso.`);
   } else {
     throw new Error(`Tarefa com ID ${idParaRemover} não encontrada na lista.`);
   }
 }
 
-function listarTarefas(lista) {
-    const ids = lista.map((tarefa) => tarefa.id);
-    window.alert("IDs das tarefas: " + ids.join(", "));
-  }
+// function listarTarefas(lista) {
+//     const ids = lista.map((tarefa) => tarefa.id);
+//     window.alert("IDs das tarefas: " + ids.join(", "));
+//   }
 
   
 
@@ -98,10 +98,10 @@ do {
             }
             break;
         case 6:
-            console.error("Até logo!");
+            console.log("Até logo!");
             break;
         default:
-            console.error("Opção Inválida. Por favor, escolha novamente.");
+            console.log("Opção Inválida. Por favor, escolha novamente.");
             break;
     }
 } while (escolha !== 6);
