@@ -26,21 +26,27 @@ function adicionaTarefa(lista) {
     lista.push(tarefa);
 }
 
-function editaTarefa() {
+function editaTarefa() {}
 
+function removeTarefa(lista, idParaRemover) {
+  const indice = lista.findIndex((tarefa) => tarefa.id === idParaRemover);
+
+  if (indice !== -1) {
+    lista.splice(indice, 1);
+    window.alert(`Tarefa com ID ${idParaRemover} removida com sucesso.`);
+  } else {
+    throw new Error(`Tarefa com ID ${idParaRemover} não encontrada na lista.`);
+  }
 }
 
-function removeTarefa() {
-   
-}
+function listarTarefas(lista) {
+    const ids = lista.map((tarefa) => tarefa.id);
+    window.alert("IDs das tarefas: " + ids.join(", "));
+  }
 
-function listarTarefas() {
-    
-}
-
-function exibirTarefa() {
   
-}
+
+function exibirTarefa() {}
 
 function exibirMenu() {
     console.log("Bem vindo a aplicação de Lista de Tarefas.\n" + 
