@@ -51,7 +51,7 @@ function listarTarefas(lista) {
 
 			// Exibe informações da tarefa
 			console.log(`\n
-				Tarefa: ${tarefa.id} \n
+				ID: ${tarefa.id} \n
 				Nome: ${tarefa.title} \n
 				Status: ${status} \n
 				------------------------
