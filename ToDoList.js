@@ -17,22 +17,41 @@ const toDoList = []
 let contador = 1
 
 function adicionaTarefa(lista) {
-  const titulo = prompt('Digite o nome da tarefa: ')
-  const tarefa = {
-    id: contador++,
-    title: titulo,
-    isComplete: false, // a chave isComplete diz se a tarefa foi concluída ou não, sua entrada padrão é false
-  }
-  lista.push(tarefa)
+  let opcao;
+  do{
+    let titulo = prompt('Digite o nome da tarefa: ');
+    while (titulo.length === 0){
+      console.log("Nome da Tarefa não pode ser vazio, digite novamente.");
+      titulo = prompt('Digite o nome da tarefa: ');
+    }
+    const tarefa = {
+      id: contador++,
+      title: titulo,
+      isComplete: false, // a chave isComplete diz se a tarefa foi concluída ou não, sua entrada padrão é false
+    }
+    lista.push(tarefa);
+    opcao = prompt("Gostaria de adicionar outra tarefa? (s/n): ");
+  } while (opcao.toLowerCase() === "s");
 }
 
 function editaTarefa(lista, idParaEditar) {
     const tarefaParaEditar = lista.find(tarefa => tarefa.id === idParaEditar);
 
     if (tarefaParaEditar) {
-        const novoTitulo = prompt(`Digite o novo nome para a tarefa ${idParaEditar}: `);
-        tarefaParaEditar.title = novoTitulo;
-        console.log(`Tarefa ${idParaEditar} editada com sucesso. Novo título: ${novoTitulo}`);
+        let opcao = prompt("Gostaria de alterar o status da tarefa? (s/n): ");
+        if(opcao.toLowerCase() === "s"){
+          tarefaParaEditar.isComplete = !tarefaParaEditar.isComplete; //se for false -> true, se for true -> false
+        } 
+        opcao = prompt("Gostaria de editar o nome da tarefa? (s/n): ");
+        if(opcao.toLowerCase() === "s"){
+          let novoTitulo = prompt(`Digite o novo nome para a tarefa ${idParaEditar}: `);
+          while (novoTitulo.length === 0){
+            console.log("Nome da Tarefa não pode ser vazio, digite novamente.");
+            novoTitulo = prompt(`Digite o novo nome para a tarefa ${idParaEditar}: `);
+          }
+          tarefaParaEditar.title = novoTitulo;
+          console.log(`Tarefa ${idParaEditar} editada com sucesso. Novo título: ${novoTitulo}`);
+        }
     } else {
         throw new Error(`Tarefa com ID ${idParaEditar} não encontrada.`);
     }
@@ -110,7 +129,7 @@ do {
       break
     case 2:
       idEscolhido = parseInt(
-        prompt('Digite o indice da tarefa que deseja editar:')
+        prompt('Digite o indice da tarefa que deseja editar: ')
       )
       try {
         editaTarefa(toDoList, idEscolhido)
