@@ -26,7 +26,17 @@ function adicionaTarefa(lista) {
   lista.push(tarefa)
 }
 
-function editaTarefa() {}
+function editaTarefa(lista, idParaEditar) {
+    const tarefaParaEditar = lista.find(tarefa => tarefa.id === idParaEditar);
+
+    if (tarefaParaEditar) {
+        const novoTitulo = prompt(`Digite o novo nome para a tarefa ${idParaEditar}: `);
+        tarefaParaEditar.title = novoTitulo;
+        console.log(`Tarefa ${idParaEditar} editada com sucesso. Novo título: ${novoTitulo}`);
+    } else {
+        throw new Error(`Tarefa com ID ${idParaEditar} não encontrada.`);
+    }
+}
 
 function removeTarefa(lista, idParaRemover) {
   const indice = lista.findIndex((tarefa) => tarefa.id === idParaRemover)
