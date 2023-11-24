@@ -9,7 +9,7 @@
 // - Listar todas as tarefas salvas
 // - Obter uma tarefa, através de um parâmetro (id)
 
-const prompt = require('prompt-sync') (); //para funcionar o prompt, instalar no terminal usando: npm install prompt-sync
+const prompt = require('prompt-sync')(); //para funcionar o prompt, instalar no terminal usando: npm install prompt-sync
 
 // A lista é armazenada como um array de objetos, sendo cada tarefa um objeto com as chaves: title, id, isComplete
 const toDoList = [];
@@ -26,38 +26,54 @@ function adicionaTarefa(lista) {
     lista.push(tarefa);
 }
 
-function editaTarefa() {}
+function editaTarefa() { }
 
 function removeTarefa(lista, idParaRemover) {
-  const indice = lista.findIndex((tarefa) => tarefa.id === idParaRemover);
+    const indice = lista.findIndex((tarefa) => tarefa.id === idParaRemover);
 
-  if (indice !== -1) {
-    lista.splice(indice, 1);
-    console.log(`Tarefa com ID ${idParaRemover} removida com sucesso.`);
-  } else {
-    throw new Error(`Tarefa com ID ${idParaRemover} não encontrada na lista.`);
-  }
+    if (indice !== -1) {
+        lista.splice(indice, 1);
+        console.log(`Tarefa com ID ${idParaRemover} removida com sucesso.`);
+    } else {
+        throw new Error(`Tarefa com ID ${idParaRemover} não encontrada na lista.`);
+    }
 }
 
-// function listarTarefas(lista) {
-//     const ids = lista.map((tarefa) => tarefa.id);
-//     window.alert("IDs das tarefas: " + ids.join(", "));
-//   }
+function listarTarefas(lista) {
+	// Verifica se há tarefas
+	if (lista.length === 0) {
+		throw new Error ('\nNenhuma tarefa encontrada.');
+	} else {
+		// Itera sobre cada tarefa usando forEach
+		lista.forEach((tarefa) => {
+			// Verifica se a tarefa está concluída para decidir a mensagem
+			const status = tarefa.isComplete ? 'concluída' : 'pendente';
 
-  
+			// Exibe informações da tarefa
+			console.log(`\n
+				ID: ${tarefa.id} \n
+				Nome: ${tarefa.title} \n
+				Status: ${status} \n
+				------------------------
+				`);
+				
+		});
+	} 
+}
 
-function exibirTarefa() {}
+
+
+function exibirTarefa() { }
 
 function exibirMenu() {
-    console.log("Bem vindo a aplicação de Lista de Tarefas.\n" + 
-                                    "Escolha uma das opções abaixo:\n" + 
-                                    "1. Adicionar Tarefa\n" + 
-                                    "2. Editar uma Tarefa salva\n" + 
-                                    "3. Remover uma Tarefa salva\n" + 
-                                    "4. Listar todas as Tarefas salvas\n" + 
-                                    "5. Exibir uma única Tarefa por Id\n" + 
-                                    "6. Sair da aplicação" 
-                                    );
+    console.log("\nBem vindo a aplicação de Lista de Tarefas.\n" +
+        "1. Adicionar Tarefa.\n" +
+        "2. Editar uma Tarefa salva.\n" +
+        "3. Remover uma Tarefa salva.\n" +
+        "4. Listar todas as Tarefas salvas.\n" +
+        "5. Exibir uma única Tarefa por Id.\n" +
+        "6. Sair da aplicação.\n"
+    );
     const escolha = prompt("Escolha uma opção acima: ")
     return escolha;
 }
@@ -71,26 +87,31 @@ do {
             adicionaTarefa(toDoList);
             break;
         case 2:
-            idEscolhido = parseInt(prompt("Digite o indice da tarefa que deseja editar"));
+            idEscolhido = parseInt(prompt("Digite o indice da tarefa que deseja editar:"));
             try {
                 editaTarefa(toDoList, idEscolhido);
-            } catch(err) {
+            } catch (err) {
                 console.error(err.message);
             }
             break;
         case 3:
-            idEscolhido = parseInt(prompt("Digite o indice da tarefa que deseja remover"));
+            idEscolhido = parseInt(prompt("Digite o indice da tarefa que deseja remover: "));
             try {
                 removeTarefa(toDoList, idEscolhido);
-            } catch(err) {
+            } catch (err) {
                 console.error(err.message);
             }
             break;
         case 4:
-            listarTarefas(toDoList);
+            try {
+                listarTarefas(toDoList);
+            } catch (err) {
+                console.error(err.message);
+            }
+            
             break;
-        case 5: 
-            idEscolhido = parseInt(prompt("Digite o indice da tarefa que deseja visualizar"));
+        case 5:
+            idEscolhido = parseInt(prompt("Digite o indice da tarefa que deseja visualizar: "));
             try {
                 exibirTarefa(toDoList, idEscolhido);
             } catch (err) {
