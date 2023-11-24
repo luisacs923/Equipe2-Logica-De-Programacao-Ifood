@@ -18,9 +18,9 @@ let contador = 1
 
 function adicionaTarefa(lista) {
   let opcao;
-  do{
+  do {
     let titulo = prompt('Digite o nome da tarefa: ');
-    while (titulo.length === 0){
+    while (titulo.length === 0) {
       console.log("Nome da Tarefa não pode ser vazio, digite novamente.");
       titulo = prompt('Digite o nome da tarefa: ');
     }
@@ -35,26 +35,26 @@ function adicionaTarefa(lista) {
 }
 
 function editaTarefa(lista, idParaEditar) {
-    const tarefaParaEditar = lista.find(tarefa => tarefa.id === idParaEditar);
+  const tarefaParaEditar = lista.find(tarefa => tarefa.id === idParaEditar);
 
-    if (tarefaParaEditar) {
-        let opcao = prompt("Gostaria de alterar o status da tarefa? (s/n): ");
-        if(opcao.toLowerCase() === "s"){
-          tarefaParaEditar.isComplete = !tarefaParaEditar.isComplete; //se for false -> true, se for true -> false
-        } 
-        opcao = prompt("Gostaria de editar o nome da tarefa? (s/n): ");
-        if(opcao.toLowerCase() === "s"){
-          let novoTitulo = prompt(`Digite o novo nome para a tarefa ${idParaEditar}: `);
-          while (novoTitulo.length === 0){
-            console.log("Nome da Tarefa não pode ser vazio, digite novamente.");
-            novoTitulo = prompt(`Digite o novo nome para a tarefa ${idParaEditar}: `);
-          }
-          tarefaParaEditar.title = novoTitulo;
-          console.log(`Tarefa ${idParaEditar} editada com sucesso. Novo título: ${novoTitulo}`);
-        }
-    } else {
-        throw new Error(`Tarefa com ID ${idParaEditar} não encontrada.`);
+  if (tarefaParaEditar) {
+    let opcao = prompt("Gostaria de alterar o status da tarefa? (s/n): ");
+    if (opcao.toLowerCase() === "s") {
+      tarefaParaEditar.isComplete = !tarefaParaEditar.isComplete; //se for false -> true, se for true -> false
     }
+    opcao = prompt("Gostaria de editar o nome da tarefa? (s/n): ");
+    if (opcao.toLowerCase() === "s") {
+      let novoTitulo = prompt(`Digite o novo nome para a tarefa ${idParaEditar}: `);
+      while (novoTitulo.length === 0) {
+        console.log("Nome da Tarefa não pode ser vazio, digite novamente.");
+        novoTitulo = prompt(`Digite o novo nome para a tarefa ${idParaEditar}: `);
+      }
+      tarefaParaEditar.title = novoTitulo;
+      console.log(`Tarefa ${idParaEditar} editada com sucesso. Novo título: ${novoTitulo}`);
+    }
+  } else {
+    throw new Error(`Tarefa com ID ${idParaEditar} não encontrada.`);
+  }
 }
 
 function removeTarefa(lista, idParaRemover) {
@@ -71,7 +71,7 @@ function removeTarefa(lista, idParaRemover) {
 function listarTarefas(lista) {
   // Verifica se há tarefas
   if (lista.length === 0) {
-    throw new Error('\nNenhuma tarefa encontrada.')
+    throw new Error('\nA lista de tarefas esta vazia.')
   } else {
     // Itera sobre cada tarefa usando forEach
     lista.forEach((tarefa) => {
@@ -108,12 +108,12 @@ function exibirTarefa(lista, idParaExibir) {
 function exibirMenu() {
   console.log(
     '\nBem vindo a aplicação de Lista de Tarefas.\n' +
-      '1. Adicionar Tarefa.\n' +
-      '2. Editar uma Tarefa salva.\n' +
-      '3. Remover uma Tarefa salva.\n' +
-      '4. Listar todas as Tarefas salvas.\n' +
-      '5. Exibir uma única Tarefa por Id.\n' +
-      '6. Sair da aplicação.\n'
+    '1. Adicionar Tarefa.\n' +
+    '2. Editar uma Tarefa salva.\n' +
+    '3. Remover uma Tarefa salva.\n' +
+    '4. Listar todas as Tarefas salvas.\n' +
+    '5. Exibir uma única Tarefa por Id.\n' +
+    '6. Sair da aplicação.\n'
   )
   const escolha = prompt('Escolha uma opção acima: ')
   return escolha
@@ -128,21 +128,30 @@ do {
       adicionaTarefa(toDoList)
       break
     case 2:
-      idEscolhido = parseInt(
-        prompt('Digite o indice da tarefa que deseja editar: ')
-      )
       try {
-        editaTarefa(toDoList, idEscolhido)
+        if (toDoList.length != 0) {
+          idEscolhido = parseInt(
+            prompt('Digite o indice da tarefa que deseja editar: ')
+          )
+          editaTarefa(toDoList, idEscolhido)
+        } else {
+          throw new Error('\nA lista de tarefas esta vazia.')
+        }
       } catch (err) {
         console.error(err.message)
       }
       break
     case 3:
-      idEscolhido = parseInt(
-        prompt('Digite o indice da tarefa que deseja remover: ')
-      )
+
       try {
-        removeTarefa(toDoList, idEscolhido)
+        if (toDoList.length != 0) {
+          idEscolhido = parseInt(
+            prompt('Digite o indice da tarefa que deseja remover: ')
+          )
+          removeTarefa(toDoList, idEscolhido)
+        } else {
+          throw new Error('\nA lista de tarefas esta vazia.')
+        }
       } catch (err) {
         console.error(err.message)
       }
@@ -153,14 +162,17 @@ do {
       } catch (err) {
         console.error(err.message)
       }
-
       break
     case 5:
-      idEscolhido = parseInt(
-        prompt('Digite o indice da tarefa que deseja visualizar: ')
-      )
       try {
-        exibirTarefa(toDoList, idEscolhido)
+        if (toDoList.length != 0) {
+          idEscolhido = parseInt(
+            prompt('Digite o indice da tarefa que deseja visualizar: ')
+          )
+          exibirTarefa(toDoList, idEscolhido)
+        } else {
+          throw new Error('\nA lista de tarefas esta vazia.')
+        }
       } catch (err) {
         console.error(err.message)
       }
